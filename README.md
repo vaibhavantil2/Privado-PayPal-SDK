@@ -1,3 +1,7 @@
+# Deprecation Notice:
+This SDK is deprecated. You can continue to use it, but no new features or support requests will be accepted.
+For alternatives, please visit [the current SDK homepage on the PayPal Developer Portal](https://developer.paypal.com/docs/api/rest-sdks/)
+
 ## PayPal REST API Java SDK [![Build Status](https://travis-ci.org/paypal/PayPal-Java-SDK.svg?branch=master)](https://travis-ci.org/paypal/PayPal-Java-SDK)
 
 ![Home Image](https://raw.githubusercontent.com/wiki/paypal/PayPal-Java-SDK/images/homepage.jpg)

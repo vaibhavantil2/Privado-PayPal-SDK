@@ -144,7 +144,8 @@ public abstract class HttpConnection {
 				} catch (IOException e) {
 					lastException = e;
 					try {
-						responseCode = connection.getResponseCode();
+						// responseCode = connection.getResponseCode();
+						responseCode = -1;
 						if (connection.getErrorStream() != null) {
 							reader = new BufferedReader(new InputStreamReader(
 									connection.getErrorStream(),

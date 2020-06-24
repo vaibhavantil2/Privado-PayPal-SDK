@@ -7,7 +7,7 @@ configurations {
 }
 
 dependencies { 
-    lombok 'org.projectlombok:lombok:1.16.10'
+    lombok 'org.projectlombok:lombok:1.18.12'
 }
 
 sourceSets.each{ sourceSet -> 
@@ -19,7 +19,7 @@ sourceSets.each{ sourceSet ->
 task delombok() {
     dependsOn configurations.compile
     dependsOn configurations.lombok
-} << {
+} doLast {
     File jarFile = null;
     configurations.lombok.resolvedConfiguration.resolvedArtifacts.find {
         if ("lombok".equals(it.name)) {

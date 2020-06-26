@@ -14,7 +14,7 @@ allprojects {
     apply plugin: 'java'
 
     group = 'com.paypal.sdk'
-    version = '1.14.1-SNAPSHOT'
+    version = '1.14.1'
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
@@ -42,9 +42,7 @@ ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 // ## REST API SDK
 project(':rest-api-sdk') {
     apply plugin: 'signing'
-
-    // apply from: 'lombok.gradle'
-
+    
     nexusStaging {
         packageGroup = "com.paypal"
         username = getRepositoryUsername()
@@ -75,22 +73,22 @@ project(':rest-api-sdk') {
     }
 
 //    test {
-////        // enable TestNG support (default is JUnit)
-////        useTestNG {
-////            suites 'src/test/resources/testng.xml'
-////            // show standard out and standard error of the test JVM(s) on the console
-////            testLogging.showStandardStreams = true
-////            // This is to force the test task to execute everytime.
-////            outputs.upToDateWhen { false }
-////        }
-////    }
-////
-////    // Run functional tests
-////    task functionalTest(type: Test, dependsOn: 'test') {
-////        useTestNG() {
-////            suites 'src/test/resources/functional.xml'
-////        }
-////    }
+//        // enable TestNG support (default is JUnit)
+//        useTestNG {
+//            suites 'src/test/resources/testng.xml'
+//            // show standard out and standard error of the test JVM(s) on the console
+//            testLogging.showStandardStreams = true
+//            // This is to force the test task to execute everytime.
+//            outputs.upToDateWhen { false }
+//        }
+//    }
+//
+//    // Run functional tests
+//    task functionalTest(type: Test, dependsOn: 'test') {
+//        useTestNG() {
+//            suites 'src/test/resources/functional.xml'
+//        }
+//    }
 
     task sourcesJar(type: Jar, dependsOn: classes) {
         classifier = 'sources'

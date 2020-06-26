@@ -72,6 +72,14 @@ public class GoogleAppEngineHttpConnection extends HttpConnection {
 		}
 		this.connection.setConnectTimeout(this.config.getConnectionTimeout());
 		this.connection.setReadTimeout(this.config.getReadTimeout());
+		switch (config.getInstanceFollowRedirects()) {
+			case NO_DO_NOT_FOLLOW_REDIRECT:
+				connection.setInstanceFollowRedirects(false);
+				break;
+			case YES_FOLLOW_REDIRECT:
+				connection.setInstanceFollowRedirects(true);
+				break;
+		}
 	}
 
 	@Override

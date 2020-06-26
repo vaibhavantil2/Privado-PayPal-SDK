@@ -78,6 +78,17 @@ public class HttpConfiguration {
 	private String httpMethod;
 
 	/**
+	 * Whether 3xx redirects whould be followed.  Default is true to preserve existing behavior
+	 */
+	private FollowRedirect followRedirects = FollowRedirect.DEFAULT;
+
+	enum FollowRedirect {
+		YES_FOLLOW_REDIRECT,
+		NO_DO_NOT_FOLLOW_REDIRECT,
+		DEFAULT // use whatever was already configured for static followRedirects in HttpURLConnection class
+	}
+
+	/**
 	 * HTTP Content Type value, defaulted to 'application/x-www-form-urlencoded'
 	 * @deprecated Set Content-Type in HTTP Headers property of {@link com.paypal.base.rest.APIContext}
 	 */
@@ -326,6 +337,16 @@ public class HttpConfiguration {
 	 */
 	public void setHttpMethod(String httpMethod) {
 		this.httpMethod = httpMethod;
+	}
+
+	// Gets whether HTTP redirects (requests with response code 3xx) should be automatically followed
+	public FollowRedirect getInstanceFollowRedirects() {
+		return followRedirects;
+	}
+
+	// Sets whether HTTP redirects (requests with response code 3xx) should be automatically followed
+	public void setInstanceFollowRedirects(FollowRedirect followRedirects) {
+		this.followRedirects = followRedirects;
 	}
 
 	/**

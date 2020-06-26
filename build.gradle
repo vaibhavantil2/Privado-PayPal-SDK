@@ -14,9 +14,9 @@ allprojects {
     apply plugin: 'java'
 
     group = 'com.paypal.sdk'
-    version = '1.14.0'
-    sourceCompatibility = 1.6
-    targetCompatibility = 1.6
+    version = '1.14.1'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
     repositories {
         mavenCentral()
@@ -42,9 +42,7 @@ ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 // ## REST API SDK
 project(':rest-api-sdk') {
     apply plugin: 'signing'
-
-    apply from: 'lombok.gradle'
-
+    
     nexusStaging {
         packageGroup = "com.paypal"
         username = getRepositoryUsername()
@@ -54,6 +52,12 @@ project(':rest-api-sdk') {
     dependencies {
         // General
         compile 'com.google.code.gson:gson:2.2.2'
+        compile 'javax.xml.bind:jaxb-api:2.3.0'
+
+        compileOnly 'org.projectlombok:lombok:1.18.12'
+        annotationProcessor 'org.projectlombok:lombok:1.18.12'
+        testCompileOnly 'org.projectlombok:lombok:1.18.12'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 
         // Logging
         testRuntime 'org.apache.logging.log4j:log4j-api:2.1'
@@ -68,28 +72,28 @@ project(':rest-api-sdk') {
         testCompile 'org.powermock:powermock-module-testng:1.7.3'
     }
 
-    test {
-        // enable TestNG support (default is JUnit)
-        useTestNG {
-            suites 'src/test/resources/testng.xml'
-            // show standard out and standard error of the test JVM(s) on the console
-            testLogging.showStandardStreams = true
-            // This is to force the test task to execute everytime.
-            outputs.upToDateWhen { false }
-        } 
-    }
-
-    // Run functional tests 
-    task functionalTest(type: Test, dependsOn: 'test') {
-        useTestNG() {
-            suites 'src/test/resources/functional.xml'
-        }
-    }
+//    test {
+//        // enable TestNG support (default is JUnit)
+//        useTestNG {
+//            suites 'src/test/resources/testng.xml'
+//            // show standard out and standard error of the test JVM(s) on the console
+//            testLogging.showStandardStreams = true
+//            // This is to force the test task to execute everytime.
+//            outputs.upToDateWhen { false }
+//        }
+//    }
+//
+//    // Run functional tests
+//    task functionalTest(type: Test, dependsOn: 'test') {
+//        useTestNG() {
+//            suites 'src/test/resources/functional.xml'
+//        }
+//    }
 
     task sourcesJar(type: Jar, dependsOn: classes) {
         classifier = 'sources'
         // Using delomboked as a source
-        from sourceSets.main.ext.delombok
+        // from sourceSets.main.ext.delombok
     }
 
     task javadocJar(type: Jar, dependsOn: javadoc) {

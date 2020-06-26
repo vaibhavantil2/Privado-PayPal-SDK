@@ -128,10 +128,18 @@ public abstract class HttpConnection {
 					}
 
 					// FAILURE
-					reader = new BufferedReader(new InputStreamReader(
-							connection.getInputStream(),
-							Constants.ENCODING_FORMAT));
-					errorResponse = read(reader);
+					InputStream responseStream = null;
+					if (responseCode >= 400) {
+						responseStream = connection.getErrorStream();
+					} else if (responseCode >= 200 && responseCode < 400) {
+						responseStream = connection.getInputStream();
+					}
+					if (responseStream != null) {
+						reader = new BufferedReader(new InputStreamReader(
+								responseStream,
+								Constants.ENCODING_FORMAT));
+						errorResponse = read(reader);
+					}
 					String msg = "Response code: " + responseCode + "\tError response: " + errorResponse;
 
 					if (responseCode >= 300 && responseCode < 500) {
